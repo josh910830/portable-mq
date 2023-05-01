@@ -1,21 +1,22 @@
 package com.github.josh910830.portablemq.producer
 
-import com.github.josh910830.portablemq.message.IdentifiableMessage
+import com.github.josh910830.portablemq.tests.example.ExampleSpringProducer
+import com.github.josh910830.portablemq.tests.fixture.messageFixture
 import io.kotest.core.spec.style.DescribeSpec
 import io.mockk.mockk
 import io.mockk.verify
 import org.springframework.context.ApplicationEventPublisher
 
 class SpringProducerTest : DescribeSpec({
-    val exampleProducer = ExampleProducer()
+    val exampleProducer = ExampleSpringProducer()
 
     describe("produce") {
-        context("after initialize holder") {
+        context("holder is initialized") {
             val applicationEventPublisher = mockk<ApplicationEventPublisher>(relaxed = true)
             ApplicationEventPublisherHolder(applicationEventPublisher).initialize()
 
             it("publish event") {
-                val m = ExampleMessage("content")
+                val m = messageFixture()
                 exampleProducer.produce(m)
 
                 verify { applicationEventPublisher.publishEvent(m) }
@@ -24,10 +25,4 @@ class SpringProducerTest : DescribeSpec({
 
     }
 
-}) {
-    data class ExampleMessage(
-        val content: String
-    ) : IdentifiableMessage()
-
-    class ExampleProducer : SpringProducer<ExampleMessage>
-}
+})

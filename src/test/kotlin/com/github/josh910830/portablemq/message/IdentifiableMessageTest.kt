@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.message
 
+import com.github.josh910830.portablemq.tests.example.ExampleMessage
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.equals.shouldNotBeEqual
@@ -11,7 +12,7 @@ class IdentifiableMessageTest : DescribeSpec({
     describe("equals") {
 
         context("same id && different content") {
-            it("is true") {
+            it("true") {
                 val m1 = ExampleMessage("content 1")
 
                 val m2 = spyk(ExampleMessage("content 2"))
@@ -22,7 +23,7 @@ class IdentifiableMessageTest : DescribeSpec({
         }
 
         context("different id && same content") {
-            it("is false") {
+            it("false") {
                 val m1 = ExampleMessage("content")
                 val m2 = ExampleMessage("content")
 
@@ -32,8 +33,4 @@ class IdentifiableMessageTest : DescribeSpec({
 
     }
 
-}) {
-    data class ExampleMessage(
-        val content: String
-    ) : IdentifiableMessage()
-}
+})
