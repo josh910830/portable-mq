@@ -25,6 +25,14 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-stream")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")
+
+    val kotestVersion = "5.6.1"
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
+
+    val mockkVersion = "1.13.5"
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 dependencyManagement {
