@@ -31,8 +31,14 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
 
+    val kotestSpringExtensionVersion = "1.1.3"
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestSpringExtensionVersion")
+
     val mockkVersion = "1.13.5"
     testImplementation("io.mockk:mockk:$mockkVersion")
+
+    val springMockkVersion = "4.0.2"
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
 }
 
 dependencyManagement {

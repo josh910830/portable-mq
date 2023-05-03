@@ -4,5 +4,6 @@ interface DeadletterStore {
 
     fun save(deadletter: Deadletter)
     fun find(deadletterId: String): Deadletter
+    fun findAllNotRedriven(): List<Deadletter>
 
 }

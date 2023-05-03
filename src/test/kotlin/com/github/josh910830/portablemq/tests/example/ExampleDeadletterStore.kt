@@ -15,4 +15,8 @@ class ExampleDeadletterStore : DeadletterStore {
         return map[deadletterId]!!
     }
 
+    override fun findAllNotRedriven(): List<Deadletter> {
+        return map.values.filter { !it.redriven }
+    }
+
 }

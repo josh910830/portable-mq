@@ -5,5 +5,6 @@ import com.github.josh910830.portablemq.message.Message
 data class Deadletter(
     val id: String,
     val message: Message,
-    val broker: Broker
+    val broker: Broker,
+    var redriven: Boolean
 )

@@ -15,7 +15,7 @@ class DeadletterHandler(
 
     fun create(message: Message, broker: Broker) {
         val deadletterId = UUID.randomUUID().toString()
-        val deadletter = Deadletter(deadletterId, message, broker)
+        val deadletter = Deadletter(deadletterId, message, broker, false)
 
         deadletterStore.save(deadletter)
         val redriveToken = redriveTokenManager.issue(deadletter.id)
@@ -29,6 +29,8 @@ class DeadletterHandler(
             Broker.SPRING -> springRedriveProducer.produce(deadletter.message)
             Broker.KAFKA -> TODO("not yet implement")
         }
+        deadletter.redriven = true
+        deadletterStore.save(deadletter)
     }
 
 }
