@@ -1,0 +1,8 @@
+package com.github.josh910830.portablemq
+
+import org.springframework.boot.SpringBootConfiguration
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+
+@SpringBootConfiguration @EnableAutoConfiguration
+@EnablePortableMQ
+class PortableMqContext
