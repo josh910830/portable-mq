@@ -2,10 +2,7 @@ package com.github.josh910830.portablemq.consumer.deadletter
 
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
 import com.github.josh910830.portablemq.producer.SpringRedriveProducer
-import com.github.josh910830.portablemq.tests.example.ExampleConsumptionLogStore
-import com.github.josh910830.portablemq.tests.example.ExampleDeadletterNotifier
-import com.github.josh910830.portablemq.tests.example.ExampleDeadletterStore
-import com.github.josh910830.portablemq.tests.example.ExampleRedriveTokenManager
+import com.github.josh910830.portablemq.tests.example.*
 import com.github.josh910830.portablemq.tests.fixture.deadletterFixture
 import com.ninjasquad.springmockk.SpykBean
 import io.kotest.core.spec.style.DescribeSpec
@@ -24,10 +21,7 @@ import java.util.stream.Collectors.joining
 @SpringBootTest
 @DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-@Import(
-    ExampleDeadletterStore::class, ExampleRedriveTokenManager::class, ExampleDeadletterNotifier::class,
-    ExampleConsumptionLogStore::class
-)
+@Import(ExampleConfiguration::class)
 class DeadletterControllerTest(
     @Autowired val mockMvc: MockMvc,
     @SpykBean val deadletterStore: DeadletterStore,
