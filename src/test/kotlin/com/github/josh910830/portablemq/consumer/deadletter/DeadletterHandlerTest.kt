@@ -22,11 +22,11 @@ class DeadletterHandlerTest : DescribeSpec({
 
     describe("create") {
         it("save issue notify") {
-            deadletterHandler.create(messageFixture(), SPRING)
+            deadletterHandler.create(messageFixture(), SPRING, RuntimeException())
 
             verify { deadletterStore.save(any()) }
             verify { redriveTokenManager.issue(any()) }
-            verify { deadletterNotifier.notify(any(), any()) }
+            verify { deadletterNotifier.notify(any(), any(), any()) }
         }
     }
 

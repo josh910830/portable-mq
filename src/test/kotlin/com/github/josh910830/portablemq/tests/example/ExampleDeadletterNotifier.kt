@@ -10,8 +10,8 @@ class ExampleDeadletterNotifier : DeadletterNotifier {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    override fun notify(deadletter: Deadletter, redriveToken: String) {
-        log.info("deadletter: $deadletter, redriveToken: $redriveToken");
+    override fun notify(deadletter: Deadletter, redriveToken: String, exception: Exception) {
+        log.info("deadletter: $deadletter, redriveToken: $redriveToken, exception: $exception")
     }
 
 }

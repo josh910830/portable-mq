@@ -13,13 +13,13 @@ class DeadletterHandler(
     private val springRedriveProducer: SpringRedriveProducer
 ) {
 
-    fun create(message: Message, broker: Broker) {
+    fun create(message: Message, broker: Broker, exception: Exception) {
         val deadletterId = UUID.randomUUID().toString()
         val deadletter = Deadletter(deadletterId, message, broker, false)
 
         deadletterStore.save(deadletter)
         val redriveToken = redriveTokenManager.issue(deadletter.id)
-        deadletterNotifier.notify(deadletter, redriveToken)
+        deadletterNotifier.notify(deadletter, redriveToken, exception)
     }
 
 
