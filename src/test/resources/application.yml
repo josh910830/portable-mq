@@ -1,0 +1,4 @@
+portable-mq:
+  default:
+    consumer-group: application-name
+    broker: SPRING

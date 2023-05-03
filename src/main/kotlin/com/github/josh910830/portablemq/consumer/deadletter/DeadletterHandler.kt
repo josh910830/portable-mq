@@ -1,5 +1,7 @@
 package com.github.josh910830.portablemq.consumer.deadletter
 
+import com.github.josh910830.portablemq.consumer.deadletter.Broker.KAFKA
+import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
 import com.github.josh910830.portablemq.message.Message
 import com.github.josh910830.portablemq.producer.SpringRedriveProducer
 import org.springframework.stereotype.Component
@@ -26,8 +28,8 @@ class DeadletterHandler(
     fun redrive(deadletterId: String) {
         val deadletter = deadletterStore.find(deadletterId)
         when (deadletter.broker) {
-            Broker.SPRING -> springRedriveProducer.produce(deadletter.message)
-            Broker.KAFKA -> TODO("not yet implement")
+            SPRING -> springRedriveProducer.produce(deadletter.message)
+            KAFKA -> TODO("not yet implement")
         }
         deadletter.redriven = true
         deadletterStore.save(deadletter)
