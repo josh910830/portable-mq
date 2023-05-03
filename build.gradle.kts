@@ -13,12 +13,6 @@ group = "com.github.josh910830"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -47,8 +41,6 @@ dependencies {
 
     val springMockkVersion = "4.0.2"
     testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
-
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 dependencyManagement {
