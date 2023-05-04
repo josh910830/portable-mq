@@ -17,16 +17,12 @@ repositories {
     mavenCentral()
 }
 
-extra["springCloudVersion"] = "2022.0.2"
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.cloud:spring-cloud-stream")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")
 
     val kotestVersion = "5.6.1"
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
@@ -41,12 +37,6 @@ dependencies {
 
     val springMockkVersion = "4.0.2"
     testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-    }
 }
 
 tasks.withType<KotlinCompile> {

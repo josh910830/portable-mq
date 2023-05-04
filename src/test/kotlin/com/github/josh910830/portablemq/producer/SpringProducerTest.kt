@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.producer
 
+import com.github.josh910830.portablemq.producer.spring.ApplicationEventPublisherHolder
 import com.github.josh910830.portablemq.tests.example.ExampleSpringProducer
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
 import io.kotest.core.spec.style.DescribeSpec

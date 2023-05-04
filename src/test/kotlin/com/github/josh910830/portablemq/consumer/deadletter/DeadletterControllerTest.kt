@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.consumer.deadletter
 
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
-import com.github.josh910830.portablemq.producer.SpringRedriveProducer
+import com.github.josh910830.portablemq.producer.spring.SpringRedriveProducer
 import com.github.josh910830.portablemq.tests.example.*
 import com.github.josh910830.portablemq.tests.fixture.deadletterFixture
 import com.ninjasquad.springmockk.SpykBean
