@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.consumer.deadletter
 
+import com.github.josh910830.portablemq.EnablePortableMQ
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
 import com.github.josh910830.portablemq.producer.spring.SpringRedriveProducer
 import com.github.josh910830.portablemq.tests.example.*
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.post
 import java.util.stream.Collectors.joining
 
 @SpringBootTest
+@EnablePortableMQ
 @DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 @Import(ExampleConfiguration::class)

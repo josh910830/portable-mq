@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.consumer.aop
 
+import com.github.josh910830.portablemq.EnablePortableMQ
 import com.github.josh910830.portablemq.tests.example.ExampleConfiguration
 import com.github.josh910830.portablemq.tests.example.ExampleSpringConsumer
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
@@ -10,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 
-
 @SpringBootTest
+@EnablePortableMQ
 @Import(ExampleConfiguration::class)
 class ConsumeAspectTest(
     @Autowired val exampleSpringConsumer: ExampleSpringConsumer,
