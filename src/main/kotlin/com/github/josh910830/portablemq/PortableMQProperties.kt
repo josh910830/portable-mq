@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.config
+package com.github.josh910830.portablemq
 
 import com.github.josh910830.portablemq.consumer.deadletter.Broker
 import org.springframework.boot.context.properties.ConfigurationProperties

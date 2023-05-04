@@ -1,6 +1,6 @@
 package com.github.josh910830.portablemq.consumer.aop
 
-import com.github.josh910830.portablemq.config.PortableMQProperties
+import com.github.josh910830.portablemq.PortableMQProperties
 import com.github.josh910830.portablemq.consumer.aop.BrokerType.DEFAULT
 import com.github.josh910830.portablemq.consumer.deadletter.Broker
 import com.github.josh910830.portablemq.consumer.deadletter.DeadletterHandler
