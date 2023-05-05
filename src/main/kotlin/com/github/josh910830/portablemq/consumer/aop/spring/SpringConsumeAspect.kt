@@ -4,7 +4,7 @@ import com.github.josh910830.portablemq.PortableMQProperties
 import com.github.josh910830.portablemq.consumer.ConsumeProcessor
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
 import com.github.josh910830.portablemq.message.Message
-import com.github.josh910830.portablemq.utility.Extracts.Companion.extractConsumerGroup
+import com.github.josh910830.portablemq.utility.Extracts.Companion.extractGroupId
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -17,15 +17,15 @@ class SpringConsumeAspect(
     private val consumeProcessor: ConsumeProcessor
 ) {
 
-    @Around("@annotation(springListener) && args(message)")
-    fun consume(joinPoint: ProceedingJoinPoint, springListener: SpringListener, message: Message) {
-        val consumerGroup = extractConsumerGroup(springListener, portableMQProperties)
+    @Around("@annotation(a) && args(message)")
+    fun consume(joinPoint: ProceedingJoinPoint, a: SpringListener, message: Message) {
+        val groupId = extractGroupId(a, portableMQProperties)
 
         consumeProcessor.consume(
             { joinPoint.proceed() },
             message,
-            springListener.useConsumptionLog, consumerGroup,
-            springListener.useDeadletter, SPRING
+            a.useConsumptionLog, groupId,
+            a.useDeadletter, SPRING
         )
     }
 

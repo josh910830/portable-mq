@@ -8,12 +8,12 @@ class ConsumptionLogDecorator(
     private val consumptionLogStore: ConsumptionLogStore
 ) {
 
-    fun consume(consumerGroup: String, message: Message, action: Runnable) {
-        if (consumptionLogStore.exists(consumerGroup, message.id)) return
+    fun consume(groupId: String, message: Message, action: Runnable) {
+        if (consumptionLogStore.exists(groupId, message.id)) return
 
         action.run()
 
-        val consumptionLog = ConsumptionLog(consumerGroup, message)
+        val consumptionLog = ConsumptionLog(groupId, message)
         consumptionLogStore.save(consumptionLog)
     }
 

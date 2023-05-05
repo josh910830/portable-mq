@@ -1,4 +1,3 @@
 portable-mq:
-  default:
-    consumer-group: application-name
-    broker: spring
+  consumer:
+    group-id: consumer

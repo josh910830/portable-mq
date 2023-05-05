@@ -1,12 +1,8 @@
 {
   "properties": [
     {
-      "name": "portable-mq.default.consumer-group",
+      "name": "portable-mq.consumer.group-id",
       "type": "java.lang.String"
-    },
-    {
-      "name": "portable-mq.default.broker",
-      "type": "com.github.josh910830.portablemq.consumer.deadletter.Broker"
     }
   ]
 }

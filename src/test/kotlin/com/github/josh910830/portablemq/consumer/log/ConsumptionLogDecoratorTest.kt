@@ -13,13 +13,13 @@ class ConsumptionLogDecoratorTest : DescribeSpec({
     val consumptionLogDecorator = ConsumptionLogDecorator(consumptionLogStore)
 
     describe("consume") {
-        val consumerGroup = "consumerGroup"
+        val groupId = "groupId"
         val message = messageFixture()
         val action = mockk<Runnable>(relaxed = true)
 
         context("not duplicated") {
             it("run save") {
-                consumptionLogDecorator.consume(consumerGroup, message, action)
+                consumptionLogDecorator.consume(groupId, message, action)
 
                 verify { action.run() }
                 verify { consumptionLogStore.save(any()) }
@@ -27,11 +27,11 @@ class ConsumptionLogDecoratorTest : DescribeSpec({
         }
 
         context("duplicated") {
-            val consumptionLog = ConsumptionLog(consumerGroup, message)
+            val consumptionLog = ConsumptionLog(groupId, message)
             consumptionLogStore.save(consumptionLog)
 
             it("skip action") {
-                consumptionLogDecorator.consume(consumerGroup, message, action)
+                consumptionLogDecorator.consume(groupId, message, action)
 
                 verify(exactly = 0) { action.run() }
             }

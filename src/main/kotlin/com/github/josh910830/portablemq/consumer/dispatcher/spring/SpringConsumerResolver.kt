@@ -21,11 +21,11 @@ class SpringConsumerResolver(
         applicationContext.getBeansWithAnnotation(Consumer::class.java).values.forEach { bean ->
             ReflectionUtils.getAllDeclaredMethods(bean.javaClass).filter { method ->
                 method.isAnnotationPresent(SpringListener::class.java)
-            }.forEach { springListenerMethod ->
-                val topic = extractTopic(springListenerMethod)
+            }.forEach { method ->
+                val topic = extractTopic(method)
 
-                val list = temp.getOrDefault(topic, mutableListOf())
-                list.add(Resolution(springListenerMethod, bean))
+                val list = temp[topic] ?: mutableListOf()
+                list.add(Resolution(method, bean))
                 temp[topic] = list
             }
         }

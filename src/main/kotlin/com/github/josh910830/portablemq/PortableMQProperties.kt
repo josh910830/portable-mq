@@ -1,14 +1,12 @@
 package com.github.josh910830.portablemq
 
-import com.github.josh910830.portablemq.consumer.deadletter.Broker
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("portable-mq")
 data class PortableMQProperties(
-    val default: Default
+    val consumer: Consumer = Consumer()
 ) {
-    data class Default(
-        val consumerGroup: String,
-        val broker: Broker
+    data class Consumer(
+        val groupId: String = ""
     )
 }

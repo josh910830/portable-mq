@@ -12,11 +12,11 @@ class Extracts {
 
         fun extractTopic(method: Method): String {
             val annotation = method.getAnnotation(SpringListener::class.java)
-                ?: throw RuntimeException("@SpringListener(topic:String?) is required to ${method.name}.")
+                ?: throw RuntimeException("@SubscribeSpring(topic:String?) is required to ${method.name}.")
 
             val defined = annotation.topic
             val default = method.parameterTypes[0].name
-            return if (defined == "default") default else defined
+            return if (defined == "") default else defined
         }
 
         fun <T : Message> extractTopic(producerClass: Class<out BrokerProducer<T>>, message: T): String {
@@ -25,13 +25,13 @@ class Extracts {
 
             val defined = annotation.topic
             val default = message.javaClass.name
-            return if (defined == "default") default else defined
+            return if (defined == "") default else defined
         }
 
-        fun extractConsumerGroup(springListener: SpringListener, portableMQProperties: PortableMQProperties): String {
-            val defined = springListener.consumerGroup
-            val default = portableMQProperties.default.consumerGroup
-            return if (defined == "default") default else defined
+        fun extractGroupId(springListener: SpringListener, portableMQProperties: PortableMQProperties): String {
+            val defined = springListener.groupId
+            val default = portableMQProperties.consumer.groupId
+            return if (defined == "") default else defined
         }
 
     }
