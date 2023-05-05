@@ -5,6 +5,7 @@ import com.github.josh910830.portablemq.consumer.aop.spring.SpringListener
 import com.github.josh910830.portablemq.message.Message
 import com.github.josh910830.portablemq.producer.BrokerProducer
 import com.github.josh910830.portablemq.producer.Producer
+import org.springframework.kafka.annotation.KafkaListener
 import java.lang.reflect.Method
 
 class Extracts {
@@ -23,6 +24,11 @@ class Extracts {
             return if (defined == "") default else defined
         }
 
+        fun extractTopic(annotation: KafkaListener): String {
+            if (annotation.topics.size != 1) throw RuntimeException("@KafkaListener.topics should have 1 element.")
+            return annotation.topics.first()
+        }
+
         fun <T : Message> extractTopic(producerClass: Class<out BrokerProducer<T>>, message: T): String {
             val annotation = producerClass.getAnnotation(Producer::class.java)
                 ?: throw RuntimeException("@Producer(topic:String?) is required to ${producerClass.name}.")
@@ -39,5 +45,10 @@ class Extracts {
             return if (defined == "") default else defined
         }
 
+        fun extractGroupId(kafkaListener: KafkaListener, portableMQProperties: PortableMQProperties): String {
+            val defined = kafkaListener.groupId
+            val default = portableMQProperties.consumer.groupId // TODO spring.kafka.consumer.group-id
+            return if (defined == "") default else defined
+        }
     }
 }
