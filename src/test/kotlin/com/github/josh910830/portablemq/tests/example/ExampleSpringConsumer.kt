@@ -10,7 +10,7 @@ class ExampleSpringConsumer {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    @EventListener
+    @EventListener // TODO dispatch
     @Consume
     fun consume(exampleMessage: ExampleMessage) {
         log.info("exampleMessage: $exampleMessage")

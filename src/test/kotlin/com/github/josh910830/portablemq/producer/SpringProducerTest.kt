@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.producer
 
+import com.github.josh910830.portablemq.message.spring.SpringMessageEvent
 import com.github.josh910830.portablemq.producer.spring.ApplicationEventPublisherHolder
 import com.github.josh910830.portablemq.tests.example.ExampleSpringProducer
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
@@ -20,7 +21,7 @@ class SpringProducerTest : DescribeSpec({
                 val m = messageFixture()
                 exampleProducer.produce(m)
 
-                verify { applicationEventPublisher.publishEvent(m) }
+                verify { applicationEventPublisher.publishEvent(SpringMessageEvent(m.javaClass.name, m)) }
             }
         }
 

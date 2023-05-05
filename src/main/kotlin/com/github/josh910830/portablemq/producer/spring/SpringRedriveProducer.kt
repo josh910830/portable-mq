@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.producer.spring
 
 import com.github.josh910830.portablemq.message.Message
-import org.springframework.stereotype.Component
+import com.github.josh910830.portablemq.producer.Producer
 
-@Component
+@Producer
 class SpringRedriveProducer : SpringProducer<Message>
