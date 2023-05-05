@@ -3,7 +3,7 @@ package com.github.josh910830.portablemq.producer.spring
 import com.github.josh910830.portablemq.message.Message
 import com.github.josh910830.portablemq.message.spring.SpringMessageEvent
 import com.github.josh910830.portablemq.producer.BrokerProducer
-import com.github.josh910830.portablemq.producer.TopicExtractionUtils.Companion.extractTopic
+import com.github.josh910830.portablemq.utility.Extracts.Companion.extractTopic
 
 interface SpringProducer<T : Message> : BrokerProducer<T> {
 
