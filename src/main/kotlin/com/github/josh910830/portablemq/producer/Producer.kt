@@ -6,4 +6,5 @@ import kotlin.annotation.AnnotationTarget.CLASS
 @Target(CLASS)
 @Component
 annotation class Producer(
+    val topic: String = "default"
 )
