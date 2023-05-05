@@ -6,9 +6,6 @@ import kotlin.annotation.AnnotationTarget.FUNCTION
 annotation class SpringListener(
 
     val groupId: String = "",
-    val topic: String = "",
-
-    val useConsumptionLog: Boolean = true,
-    val useDeadletter: Boolean = true
+    val topic: String = ""
 
 )

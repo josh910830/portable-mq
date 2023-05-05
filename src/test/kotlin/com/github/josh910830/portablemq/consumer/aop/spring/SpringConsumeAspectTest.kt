@@ -26,7 +26,7 @@ class SpringConsumeAspectTest(
             it("aspect consume") {
                 exampleSpringConsumer.consume(messageFixture())
 
-                verify { springConsumeAspect.consume(any(), any(), any()) }
+                verify { springConsumeAspect.consume(any(), any(), any(), any()) }
             }
         }
     }
