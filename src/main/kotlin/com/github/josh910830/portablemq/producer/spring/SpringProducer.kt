@@ -3,12 +3,12 @@ package com.github.josh910830.portablemq.producer.spring
 import com.github.josh910830.portablemq.message.Message
 import com.github.josh910830.portablemq.message.spring.SpringMessageEvent
 import com.github.josh910830.portablemq.producer.BrokerProducer
-import com.github.josh910830.portablemq.utility.Extracts.Companion.extractTopic
+import com.github.josh910830.portablemq.producer.Producer
 
 interface SpringProducer<T : Message> : BrokerProducer<T> {
 
     override fun produce(message: T) {
-        val topic = extractTopic(javaClass, message)
+        val topic = javaClass.getAnnotation(Producer::class.java)!!.topic
         val event = SpringMessageEvent(topic, message)
         ApplicationEventPublisherHolder.get().publishEvent(event)
     }

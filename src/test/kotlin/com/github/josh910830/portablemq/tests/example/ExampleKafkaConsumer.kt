@@ -11,7 +11,7 @@ class ExampleKafkaConsumer {
     private val log = LoggerFactory.getLogger(javaClass)
 
     @Consume
-    @KafkaListener(topics = ["example-message"], groupId = "example")
+    @KafkaListener(topics = ["example-message"])
     fun consume(data: String) {
         log.info("data: $data")
     }

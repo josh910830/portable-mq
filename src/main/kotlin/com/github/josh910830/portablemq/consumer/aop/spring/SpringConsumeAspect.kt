@@ -1,12 +1,10 @@
 package com.github.josh910830.portablemq.consumer.aop.spring
 
-import com.github.josh910830.portablemq.PortableMQProperties
 import com.github.josh910830.portablemq.consumer.ConsumeProcessor
 import com.github.josh910830.portablemq.consumer.aop.Consume
+import com.github.josh910830.portablemq.consumer.aop.ConsumerGroupParser
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
 import com.github.josh910830.portablemq.message.Message
-import com.github.josh910830.portablemq.utility.Extracts.Companion.extractGroupId
-import com.github.josh910830.portablemq.utility.Extracts.Companion.extractTopic
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component
 @Aspect
 @Component
 class SpringConsumeAspect(
-    private val portableMQProperties: PortableMQProperties,
+    private val consumerGroupParser: ConsumerGroupParser,
     private val consumeProcessor: ConsumeProcessor
 ) {
 
@@ -25,13 +23,10 @@ class SpringConsumeAspect(
         a: SpringListener, b: Consume,
         message: Message
     ) {
-        val groupId = extractGroupId(a, portableMQProperties)
-        val topic = extractTopic(a, message.javaClass)
-
         consumeProcessor.consume(
             { joinPoint.proceed() },
-            topic, message,
-            b.useConsumptionLog, groupId,
+            a.topic, message,
+            b.useConsumptionLog, consumerGroupParser.parse(a),
             b.useDeadletter, SPRING
         )
     }

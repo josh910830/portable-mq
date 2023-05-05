@@ -11,7 +11,7 @@ class ExampleSpringConsumer {
     private val log = LoggerFactory.getLogger(javaClass)
 
     @Consume
-    @SpringListener
+    @SpringListener("example-message")
     fun consume(exampleMessage: ExampleMessage) {
         log.info("exampleMessage: $exampleMessage")
     }

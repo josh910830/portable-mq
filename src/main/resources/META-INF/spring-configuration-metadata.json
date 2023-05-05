@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "portable-mq.consumer.group-id",
-      "type": "java.lang.String"
-    }
-  ]
-}

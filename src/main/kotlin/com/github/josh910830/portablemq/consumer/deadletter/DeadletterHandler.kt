@@ -30,7 +30,7 @@ class DeadletterHandler(
     fun redrive(deadletterId: String) {
         val deadletter = deadletterStore.find(deadletterId)
         when (deadletter.broker) {
-            SPRING -> springRedriveProducer.produce(deadletter.message)
+            SPRING -> springRedriveProducer.produce(deadletter.topic, deadletter.message)
             KAFKA -> kafkaRedriveProducer.produce(deadletter.topic, deadletter.message)
         }
         deadletter.redriven = true

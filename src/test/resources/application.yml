@@ -1,3 +1,4 @@
-portable-mq:
-  consumer:
-    group-id: consumer
+spring:
+  kafka:
+    consumer:
+      group-id: "consumer"

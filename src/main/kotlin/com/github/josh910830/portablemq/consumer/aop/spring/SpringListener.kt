@@ -5,7 +5,7 @@ import kotlin.annotation.AnnotationTarget.FUNCTION
 @Target(FUNCTION)
 annotation class SpringListener(
 
-    val groupId: String = "",
-    val topic: String = ""
+    val topic: String,
+    val groupId: String = ""
 
 )

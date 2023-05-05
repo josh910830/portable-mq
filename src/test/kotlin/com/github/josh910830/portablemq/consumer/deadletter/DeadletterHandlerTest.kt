@@ -43,7 +43,7 @@ class DeadletterHandlerTest : DescribeSpec({
             it("produce message") {
                 deadletterHandler.redrive(deadletter.id)
 
-                verify { springRedriveProducer.produce(any()) }
+                verify { springRedriveProducer.produce(any(), any()) }
             }
         }
     }

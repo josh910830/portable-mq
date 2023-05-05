@@ -47,7 +47,7 @@ class DeadletterControllerTest(
                 mockMvc.post("/_deadletter/redrive?deadletterIds=$deadletterIds")
                     .andExpect { status { isOk() } }
 
-                verify(exactly = 2) { springRedriveProducer.produce(any()) }
+                verify(exactly = 2) { springRedriveProducer.produce(any(), any()) }
             }
         }
     }
@@ -64,7 +64,7 @@ class DeadletterControllerTest(
                 mockMvc.post("/_deadletter/redrive-all")
                     .andExpect { status { isOk() } }
 
-                verify(exactly = 1) { springRedriveProducer.produce(any()) }
+                verify(exactly = 1) { springRedriveProducer.produce(any(), any()) }
             }
         }
     }
