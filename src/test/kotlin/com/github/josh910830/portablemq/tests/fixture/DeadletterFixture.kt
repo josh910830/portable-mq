@@ -12,5 +12,6 @@ fun deadletterFixture(): Deadletter {
 fun deadletterFixture(broker: Broker): Deadletter {
     val id = UUID.randomUUID().toString()
     val message = messageFixture()
-    return Deadletter(id, message, broker, false)
+    val topic = message.javaClass.name
+    return Deadletter(id, topic, message, broker, false)
 }

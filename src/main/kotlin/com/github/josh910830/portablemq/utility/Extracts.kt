@@ -10,12 +10,16 @@ import java.lang.reflect.Method
 class Extracts {
     companion object {
 
-        fun extractTopic(method: Method): String {
+        fun extractTopicFromSpringListener(method: Method): String {
             val annotation = method.getAnnotation(SpringListener::class.java)
                 ?: throw RuntimeException("@SubscribeSpring(topic:String?) is required to ${method.name}.")
+            val messageClass = method.parameterTypes[0] as Class<out Message>
+            return extractTopic(annotation, messageClass)
+        }
 
+        fun <T : Message> extractTopic(annotation: SpringListener, messageClass: Class<T>): String {
             val defined = annotation.topic
-            val default = method.parameterTypes[0].name
+            val default = messageClass.name
             return if (defined == "") default else defined
         }
 
@@ -27,6 +31,7 @@ class Extracts {
             val default = message.javaClass.name
             return if (defined == "") default else defined
         }
+
 
         fun extractGroupId(springListener: SpringListener, portableMQProperties: PortableMQProperties): String {
             val defined = springListener.groupId

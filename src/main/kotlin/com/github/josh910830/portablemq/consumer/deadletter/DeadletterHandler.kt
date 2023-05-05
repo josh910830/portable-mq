@@ -3,6 +3,7 @@ package com.github.josh910830.portablemq.consumer.deadletter
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.KAFKA
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
 import com.github.josh910830.portablemq.message.Message
+import com.github.josh910830.portablemq.producer.kafka.KafkaRedriveProducer
 import com.github.josh910830.portablemq.producer.spring.SpringRedriveProducer
 import org.springframework.stereotype.Component
 import java.util.*
@@ -12,12 +13,13 @@ class DeadletterHandler(
     private val deadletterStore: DeadletterStore,
     private val redriveTokenManager: RedriveTokenManager,
     private val deadletterNotifier: DeadletterNotifier,
-    private val springRedriveProducer: SpringRedriveProducer
+    private val springRedriveProducer: SpringRedriveProducer,
+    private val kafkaRedriveProducer: KafkaRedriveProducer
 ) {
 
-    fun create(message: Message, broker: Broker, exception: Exception) {
+    fun create(topic: String, message: Message, broker: Broker, exception: Exception) {
         val deadletterId = UUID.randomUUID().toString()
-        val deadletter = Deadletter(deadletterId, message, broker, false)
+        val deadletter = Deadletter(deadletterId, topic, message, broker, false)
 
         deadletterStore.save(deadletter)
         val redriveToken = redriveTokenManager.issue(deadletter.id)
@@ -29,7 +31,7 @@ class DeadletterHandler(
         val deadletter = deadletterStore.find(deadletterId)
         when (deadletter.broker) {
             SPRING -> springRedriveProducer.produce(deadletter.message)
-            KAFKA -> TODO("not yet implement")
+            KAFKA -> kafkaRedriveProducer.produce(deadletter.topic, deadletter.message)
         }
         deadletter.redriven = true
         deadletterStore.save(deadletter)

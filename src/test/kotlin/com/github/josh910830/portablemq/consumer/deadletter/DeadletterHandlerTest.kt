@@ -1,6 +1,7 @@
 package com.github.josh910830.portablemq.consumer.deadletter
 
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
+import com.github.josh910830.portablemq.producer.kafka.KafkaRedriveProducer
 import com.github.josh910830.portablemq.producer.spring.SpringRedriveProducer
 import com.github.josh910830.portablemq.tests.example.ExampleDeadletterNotifier
 import com.github.josh910830.portablemq.tests.example.ExampleDeadletterStore
@@ -18,11 +19,15 @@ class DeadletterHandlerTest : DescribeSpec({
     val redriveTokenManager = spyk(ExampleRedriveTokenManager())
     val deadletterNotifier = spyk(ExampleDeadletterNotifier())
     val springRedriveProducer = mockk<SpringRedriveProducer>(relaxed = true)
-    val deadletterHandler = DeadletterHandler(deadletterStore, redriveTokenManager, deadletterNotifier, springRedriveProducer)
+    val kafkaRedriveProducer = mockk<KafkaRedriveProducer>(relaxed = true)
+    val deadletterHandler = DeadletterHandler(
+        deadletterStore, redriveTokenManager, deadletterNotifier,
+        springRedriveProducer, kafkaRedriveProducer
+    )
 
     describe("create") {
         it("save issue notify") {
-            deadletterHandler.create(messageFixture(), SPRING, RuntimeException())
+            deadletterHandler.create("topic", messageFixture(), SPRING, RuntimeException())
 
             verify { deadletterStore.save(any()) }
             verify { redriveTokenManager.issue(any()) }

@@ -2,7 +2,7 @@ package com.github.josh910830.portablemq.consumer.dispatcher.spring
 
 import com.github.josh910830.portablemq.consumer.Consumer
 import com.github.josh910830.portablemq.consumer.aop.spring.SpringListener
-import com.github.josh910830.portablemq.utility.Extracts.Companion.extractTopic
+import com.github.josh910830.portablemq.utility.Extracts.Companion.extractTopicFromSpringListener
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
@@ -22,7 +22,7 @@ class SpringConsumerResolver(
             ReflectionUtils.getAllDeclaredMethods(bean.javaClass).filter { method ->
                 method.isAnnotationPresent(SpringListener::class.java)
             }.forEach { method ->
-                val topic = extractTopic(method)
+                val topic = extractTopicFromSpringListener(method)
 
                 val list = temp[topic] ?: mutableListOf()
                 list.add(Resolution(method, bean))

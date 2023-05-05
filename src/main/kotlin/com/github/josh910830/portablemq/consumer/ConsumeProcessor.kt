@@ -13,7 +13,8 @@ class ConsumeProcessor(
 ) {
 
     fun consume(
-        action: Runnable, message: Message,
+        action: Runnable,
+        topic: String, message: Message,
         consumptionLog: Boolean, groupId: String,
         deadletter: Boolean, broker: Broker
     ) {
@@ -21,7 +22,7 @@ class ConsumeProcessor(
             if (consumptionLog) consumptionLogDecorator.consume(groupId, message, action)
             else action.run()
         } catch (e: Exception) {
-            if (deadletter) deadletterHandler.create(message, broker, e)
+            if (deadletter) deadletterHandler.create(topic, message, broker, e)
         }
     }
 
