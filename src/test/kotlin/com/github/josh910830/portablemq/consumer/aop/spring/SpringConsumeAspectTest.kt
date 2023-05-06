@@ -1,6 +1,7 @@
 package com.github.josh910830.portablemq.consumer.aop.spring
 
 import com.github.josh910830.portablemq.EnablePortableMQ
+import com.github.josh910830.portablemq.spring.consumer.SpringConsumeAspect
 import com.github.josh910830.portablemq.tests.example.ExampleConfiguration
 import com.github.josh910830.portablemq.tests.example.ExampleSpringConsumer
 import com.github.josh910830.portablemq.tests.fixture.messageFixture

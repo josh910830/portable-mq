@@ -1,7 +1,7 @@
-package com.github.josh910830.portablemq.producer.spring
+package com.github.josh910830.portablemq.spring.producer
 
 import com.github.josh910830.portablemq.core.message.Message
-import com.github.josh910830.portablemq.message.spring.SpringMessageEvent
+import com.github.josh910830.portablemq.spring.event.SpringMessageEvent
 import com.github.josh910830.portablemq.core.producer.BrokerProducer
 import com.github.josh910830.portablemq.core.producer.Producer
 

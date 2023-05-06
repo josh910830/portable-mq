@@ -1,11 +1,12 @@
-package com.github.josh910830.portablemq.consumer.dispatcher.spring
+package com.github.josh910830.portablemq.spring.event
 
+import com.github.josh910830.portablemq.spring.consumer.SpringListener
 import com.github.josh910830.portablemq.core.consumer.Consumer
-import com.github.josh910830.portablemq.consumer.aop.spring.SpringListener
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
 import org.springframework.util.ReflectionUtils
+import java.lang.reflect.Method
 
 @Component
 class SpringConsumerResolver(
@@ -33,5 +34,11 @@ class SpringConsumerResolver(
     fun get(topic: String): List<Resolution> {
         return map[topic] ?: emptyList()
     }
+
+
+    data class Resolution(
+        val method: Method,
+        val bean: Any
+    )
 
 }

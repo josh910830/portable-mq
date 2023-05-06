@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.consumer.aop.spring
+package com.github.josh910830.portablemq.spring.consumer
 
 import com.github.josh910830.portablemq.core.consumer.Broker.SPRING
 import com.github.josh910830.portablemq.core.consumer.Consume

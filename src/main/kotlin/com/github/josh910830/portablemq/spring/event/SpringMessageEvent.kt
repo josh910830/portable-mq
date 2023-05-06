@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.message.spring
+package com.github.josh910830.portablemq.spring.event
 
 import com.github.josh910830.portablemq.core.message.Message
 

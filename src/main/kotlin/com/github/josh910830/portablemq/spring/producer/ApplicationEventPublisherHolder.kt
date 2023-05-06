@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.producer.spring
+package com.github.josh910830.portablemq.spring.producer
 
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationEventPublisher

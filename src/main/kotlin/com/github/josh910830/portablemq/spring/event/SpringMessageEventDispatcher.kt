@@ -1,12 +1,11 @@
-package com.github.josh910830.portablemq.consumer.dispatcher.spring
+package com.github.josh910830.portablemq.spring.event
 
-import com.github.josh910830.portablemq.message.spring.SpringMessageEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import java.util.concurrent.Executor
 
 @Component
-class SpringMessageDispatcher(
+class SpringMessageEventDispatcher(
     private val springConsumerResolver: SpringConsumerResolver,
     private val executor: Executor
 ) {
