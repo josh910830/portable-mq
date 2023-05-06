@@ -4,8 +4,7 @@ import com.github.josh910830.portablemq.consumer.ConsumeProcessor
 import com.github.josh910830.portablemq.consumer.aop.Consume
 import com.github.josh910830.portablemq.consumer.aop.ConsumerGroupParser
 import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
-import com.github.josh910830.portablemq.message.kafka.KafkaDefaultMessage
-import com.github.josh910830.portablemq.producer.kafka.ObjectMapperHolder
+import com.github.josh910830.portablemq.message.Message
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Component
 @Component
 class KafkaConsumeAspect(
     private val consumerGroupParser: ConsumerGroupParser,
+    private val kafkaConsumerResolver: KafkaConsumerResolver,
     private val consumeProcessor: ConsumeProcessor
 ) {
 
@@ -25,17 +25,20 @@ class KafkaConsumeAspect(
         a: KafkaListener, b: Consume,
         data: String
     ) {
-        if (a.topics.size != 1) throw RuntimeException("@KafkaListener.topics should have 1 element.") // TODO postConstruct
+        val consumer = joinPoint.`this`
+        val parseMethod = kafkaConsumerResolver.getParseMethod(consumer)
+        val handleMethod = kafkaConsumerResolver.getHandleMethod(consumer)
 
-        val message = ObjectMapperHolder.get().readValue(data, KafkaDefaultMessage::class.java)
-        // TODO badletter
+        val message = parseMethod.invoke(consumer, data) as Message // TODO badletter
 
         consumeProcessor.consume(
-            { joinPoint.proceed() },
+            { handleMethod.invoke(consumer, message) },
             a.topics.first(), message,
             b.useConsumptionLog, consumerGroupParser.parse(a),
             b.useDeadletter, SPRING
         )
+
+        joinPoint.proceed()
     }
 
 }
