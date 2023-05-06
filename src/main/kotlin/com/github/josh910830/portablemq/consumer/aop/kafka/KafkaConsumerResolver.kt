@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.consumer.aop.kafka
 
-import com.github.josh910830.portablemq.PortableMQException
-import com.github.josh910830.portablemq.consumer.Consumer
+import com.github.josh910830.portablemq.core.exception.PortableMQException
+import com.github.josh910830.portablemq.core.consumer.Consumer
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
 import org.springframework.kafka.annotation.KafkaListener

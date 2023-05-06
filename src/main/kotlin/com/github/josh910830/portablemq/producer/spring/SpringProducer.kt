@@ -1,9 +1,9 @@
 package com.github.josh910830.portablemq.producer.spring
 
-import com.github.josh910830.portablemq.message.Message
+import com.github.josh910830.portablemq.core.message.Message
 import com.github.josh910830.portablemq.message.spring.SpringMessageEvent
-import com.github.josh910830.portablemq.producer.BrokerProducer
-import com.github.josh910830.portablemq.producer.Producer
+import com.github.josh910830.portablemq.core.producer.BrokerProducer
+import com.github.josh910830.portablemq.core.producer.Producer
 
 interface SpringProducer<T : Message> : BrokerProducer<T> {
 

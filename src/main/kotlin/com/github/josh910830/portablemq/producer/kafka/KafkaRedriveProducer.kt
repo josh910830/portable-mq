@@ -1,6 +1,6 @@
 package com.github.josh910830.portablemq.producer.kafka
 
-import com.github.josh910830.portablemq.message.Message
+import com.github.josh910830.portablemq.core.message.Message
 import org.springframework.stereotype.Component
 
 @Component

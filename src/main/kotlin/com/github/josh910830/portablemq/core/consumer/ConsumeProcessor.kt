@@ -1,8 +1,8 @@
-package com.github.josh910830.portablemq.consumer
+package com.github.josh910830.portablemq.core.consumer
 
-import com.github.josh910830.portablemq.consumer.deadletter.DeadletterHandler
-import com.github.josh910830.portablemq.consumer.log.ConsumptionLogDecorator
-import com.github.josh910830.portablemq.message.Message
+import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterHandler
+import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLogDecorator
+import com.github.josh910830.portablemq.core.message.Message
 import org.springframework.stereotype.Component
 
 @Component

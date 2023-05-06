@@ -1,8 +1,8 @@
 package com.github.josh910830.portablemq.producer.kafka
 
-import com.github.josh910830.portablemq.message.Message
-import com.github.josh910830.portablemq.producer.BrokerProducer
-import com.github.josh910830.portablemq.producer.Producer
+import com.github.josh910830.portablemq.core.message.Message
+import com.github.josh910830.portablemq.core.producer.BrokerProducer
+import com.github.josh910830.portablemq.core.producer.Producer
 
 interface KafkaProducer<T : Message> : BrokerProducer<T> {
 

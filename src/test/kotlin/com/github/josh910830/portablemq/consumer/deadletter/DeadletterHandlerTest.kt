@@ -1,6 +1,7 @@
 package com.github.josh910830.portablemq.consumer.deadletter
 
-import com.github.josh910830.portablemq.consumer.Broker.SPRING
+import com.github.josh910830.portablemq.core.consumer.Broker.SPRING
+import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterHandler
 import com.github.josh910830.portablemq.producer.kafka.KafkaRedriveProducer
 import com.github.josh910830.portablemq.producer.spring.SpringRedriveProducer
 import com.github.josh910830.portablemq.tests.example.ExampleDeadletterNotifier

@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.tests.example
 
-import com.github.josh910830.portablemq.consumer.deadletter.Deadletter
-import com.github.josh910830.portablemq.consumer.deadletter.DeadletterNotifier
+import com.github.josh910830.portablemq.core.consumer.deadletter.Deadletter
+import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterNotifier
 import org.slf4j.LoggerFactory
 import org.springframework.boot.test.context.TestComponent
 

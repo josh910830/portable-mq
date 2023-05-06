@@ -1,6 +1,6 @@
 package com.github.josh910830.portablemq.consumer.badletter
 
-import com.github.josh910830.portablemq.consumer.Broker
+import com.github.josh910830.portablemq.core.consumer.Broker
 import org.springframework.stereotype.Component
 import java.util.*
 

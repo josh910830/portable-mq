@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.message
+package com.github.josh910830.portablemq.core.message
 
 import java.util.*
 

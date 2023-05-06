@@ -1,10 +1,8 @@
-package com.github.josh910830.portablemq.producer
+package com.github.josh910830.portablemq.core.consumer
 
 import org.springframework.stereotype.Component
 import kotlin.annotation.AnnotationTarget.CLASS
 
 @Target(CLASS)
 @Component
-annotation class Producer(
-    val topic: String
-)
+annotation class Consumer

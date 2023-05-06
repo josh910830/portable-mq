@@ -1,5 +1,7 @@
 package com.github.josh910830.portablemq.consumer.log
 
+import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLog
+import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLogDecorator
 import com.github.josh910830.portablemq.tests.example.ExampleConsumptionLogStore
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
 import io.kotest.core.spec.style.DescribeSpec

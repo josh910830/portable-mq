@@ -1,15 +1,15 @@
 package com.github.josh910830.portablemq.consumer.aop.kafka
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.josh910830.portablemq.consumer.Broker.KAFKA
-import com.github.josh910830.portablemq.consumer.ConsumeProcessor
-import com.github.josh910830.portablemq.consumer.aop.Consume
-import com.github.josh910830.portablemq.consumer.aop.ConsumerGroupParser
 import com.github.josh910830.portablemq.consumer.badletter.BadletterHandler
-import com.github.josh910830.portablemq.message.Message
+import com.github.josh910830.portablemq.core.consumer.Broker.KAFKA
+import com.github.josh910830.portablemq.core.consumer.Consume
+import com.github.josh910830.portablemq.core.consumer.ConsumeProcessor
+import com.github.josh910830.portablemq.core.message.Message
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 import java.lang.reflect.Method
@@ -22,8 +22,8 @@ class KafkaConsumeAspect(
     private val kafkaConsumerResolver: KafkaConsumerResolver,
     private val badletterHandler: BadletterHandler,
     private val consumeProcessor: ConsumeProcessor,
-    private val consumerGroupParser: ConsumerGroupParser,
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    @Value("\${spring.kafka.consumer.group-id}") private val defaultGroupId: String
 ) {
 
     @Around("@annotation(a) && @annotation(b) && args(data,..)")
@@ -37,6 +37,8 @@ class KafkaConsumeAspect(
         val handleMethod = kafkaConsumerResolver.getHandleMethod(consumer)
 
         val topic = a.topics.first()
+        val groupId = if (a.groupId == "") defaultGroupId else a.groupId
+
         optionalGet(
             { parse(parseMethod, consumer, data, handleMethod) },
             { if (b.useBadletter) badletterHandler.create(topic, data, KAFKA, it) }
@@ -44,7 +46,7 @@ class KafkaConsumeAspect(
             consumeProcessor.consume(
                 { handleMethod.invoke(consumer, message) },
                 topic, message,
-                b.useConsumptionLog, consumerGroupParser.parse(a),
+                b.useConsumptionLog, groupId,
                 b.useDeadletter, KAFKA
             )
             joinPoint.proceed()

@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.consumer.aop
+package com.github.josh910830.portablemq.core.consumer
 
 import kotlin.annotation.AnnotationTarget.FUNCTION
 

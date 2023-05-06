@@ -1,6 +1,6 @@
 package com.github.josh910830.portablemq.consumer.dispatcher.spring
 
-import com.github.josh910830.portablemq.consumer.Consumer
+import com.github.josh910830.portablemq.core.consumer.Consumer
 import com.github.josh910830.portablemq.consumer.aop.spring.SpringListener
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext

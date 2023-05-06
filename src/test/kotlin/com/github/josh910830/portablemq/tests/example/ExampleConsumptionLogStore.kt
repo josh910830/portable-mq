@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.tests.example
 
-import com.github.josh910830.portablemq.consumer.log.ConsumptionLog
-import com.github.josh910830.portablemq.consumer.log.ConsumptionLogStore
+import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLog
+import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLogStore
 import org.springframework.boot.test.context.TestComponent
 
 @TestComponent
