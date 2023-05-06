@@ -1,7 +1,8 @@
 package com.github.josh910830.portablemq.consumer.deadletter
 
-import com.github.josh910830.portablemq.consumer.deadletter.Broker.KAFKA
-import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
+import com.github.josh910830.portablemq.consumer.Broker
+import com.github.josh910830.portablemq.consumer.Broker.KAFKA
+import com.github.josh910830.portablemq.consumer.Broker.SPRING
 import com.github.josh910830.portablemq.message.Message
 import com.github.josh910830.portablemq.producer.kafka.KafkaRedriveProducer
 import com.github.josh910830.portablemq.producer.spring.SpringRedriveProducer

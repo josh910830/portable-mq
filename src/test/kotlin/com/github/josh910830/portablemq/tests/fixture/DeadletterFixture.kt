@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.tests.fixture
 
-import com.github.josh910830.portablemq.consumer.deadletter.Broker
-import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
+import com.github.josh910830.portablemq.consumer.Broker
+import com.github.josh910830.portablemq.consumer.Broker.SPRING
 import com.github.josh910830.portablemq.consumer.deadletter.Deadletter
 import java.util.*
 

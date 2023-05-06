@@ -1,6 +1,5 @@
 package com.github.josh910830.portablemq.consumer
 
-import com.github.josh910830.portablemq.consumer.deadletter.Broker
 import com.github.josh910830.portablemq.consumer.deadletter.DeadletterHandler
 import com.github.josh910830.portablemq.consumer.log.ConsumptionLogDecorator
 import com.github.josh910830.portablemq.message.Message
