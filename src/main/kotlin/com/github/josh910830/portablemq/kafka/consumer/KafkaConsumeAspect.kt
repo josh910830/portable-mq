@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 import java.lang.reflect.Method
 import java.util.function.Consumer
@@ -26,12 +27,14 @@ class KafkaConsumeAspect(
     @Value("\${spring.kafka.consumer.group-id}") private val defaultGroupId: String
 ) {
 
-    @Around("@annotation(a) && @annotation(b) && args(data,..)")
+    @Around("@annotation(a) && @annotation(b) && args(data,ack)")
     fun consume(
         joinPoint: ProceedingJoinPoint,
         a: KafkaListener, b: Consume,
-        data: String
+        data: String, ack: Acknowledgment
     ) {
+        joinPoint.proceed()
+
         val consumer = joinPoint.`this`!!
         val parseMethod = kafkaMethodResolver.getParseMethod(consumer)
         val handleMethod = kafkaMethodResolver.getHandleMethod(consumer)
@@ -49,7 +52,7 @@ class KafkaConsumeAspect(
                 b.useConsumptionLog, groupId,
                 b.useDeadletter, KAFKA
             )
-            joinPoint.proceed()
+            ack.acknowledge()
         }
     }
 
