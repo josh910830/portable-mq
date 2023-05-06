@@ -38,20 +38,15 @@ class KafkaConsumerResolver(
                 method.getAnnotation(Parse::class.java)?.let { tempParseMethodMap[bean] = method }
                 method.getAnnotation(Handle::class.java)?.let { tempHandleMethodMap[bean] = method }
             }
-        }
-        kafkaConsumers.forEach { bean ->
-            tempParseMethodMap[bean]
-                ?: throw PortableMQException("@KafkaListener should have @Parse fun parse(data:String):Message")
-            tempHandleMethodMap[bean]
-                ?: throw PortableMQException("@KafkaListener should have @Handle fun handle(message:Message)")
+            tempHandleMethodMap[bean] ?: throw PortableMQException("@Handle fun handle(message:Message) is required.")
         }
         parseMethodMap = tempParseMethodMap
         handleMethodMap = tempHandleMethodMap
     }
 
 
-    fun getParseMethod(bean: Any): Method {
-        return parseMethodMap[bean]!!
+    fun getParseMethod(bean: Any): Method? {
+        return parseMethodMap[bean]
     }
 
     fun getHandleMethod(bean: Any): Method {

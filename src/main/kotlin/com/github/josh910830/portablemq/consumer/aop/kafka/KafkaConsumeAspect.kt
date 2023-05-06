@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.consumer.aop.kafka
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.josh910830.portablemq.consumer.ConsumeProcessor
 import com.github.josh910830.portablemq.consumer.aop.Consume
 import com.github.josh910830.portablemq.consumer.aop.ConsumerGroupParser
@@ -10,12 +11,16 @@ import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
+import java.lang.reflect.Method
+import java.util.function.Consumer
+import java.util.function.Supplier
 
 @Aspect
 @Component
 class KafkaConsumeAspect(
     private val consumerGroupParser: ConsumerGroupParser,
     private val kafkaConsumerResolver: KafkaConsumerResolver,
+    private val objectMapper: ObjectMapper,
     private val consumeProcessor: ConsumeProcessor
 ) {
 
@@ -25,20 +30,39 @@ class KafkaConsumeAspect(
         a: KafkaListener, b: Consume,
         data: String
     ) {
-        val consumer = joinPoint.`this`
+        val consumer = joinPoint.`this`!!
         val parseMethod = kafkaConsumerResolver.getParseMethod(consumer)
         val handleMethod = kafkaConsumerResolver.getHandleMethod(consumer)
 
-        val message = parseMethod.invoke(consumer, data) as Message // TODO badletter
+        optionalGet(
+            { parse(parseMethod, consumer, data, handleMethod) },
+            { it.printStackTrace() } // TODO badletter
+        )?.let { message ->
+            consumeProcessor.consume(
+                { handleMethod.invoke(consumer, message) },
+                a.topics.first(), message,
+                b.useConsumptionLog, consumerGroupParser.parse(a),
+                b.useDeadletter, SPRING
+            )
+            joinPoint.proceed()
+        }
+    }
 
-        consumeProcessor.consume(
-            { handleMethod.invoke(consumer, message) },
-            a.topics.first(), message,
-            b.useConsumptionLog, consumerGroupParser.parse(a),
-            b.useDeadletter, SPRING
-        )
+    private fun parse(
+        parseMethod: Method?, consumer: Any, data: String, handleMethod: Method
+    ): Message {
+        if (parseMethod != null) return parseMethod.invoke(consumer, data) as Message
+        return objectMapper.readValue(data, handleMethod.parameterTypes[0]) as Message
+    }
 
-        joinPoint.proceed()
+
+    private fun <T> optionalGet(supplier: Supplier<T>, onFail: Consumer<Exception>): T? {
+        return try {
+            supplier.get()
+        } catch (e: Exception) {
+            onFail.accept(e)
+            null
+        }
     }
 
 }
