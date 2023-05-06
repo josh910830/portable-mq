@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.josh910830.portablemq.consumer.ConsumeProcessor
 import com.github.josh910830.portablemq.consumer.aop.Consume
 import com.github.josh910830.portablemq.consumer.aop.ConsumerGroupParser
-import com.github.josh910830.portablemq.consumer.deadletter.Broker.SPRING
+import com.github.josh910830.portablemq.consumer.badletter.BadletterHandler
+import com.github.josh910830.portablemq.consumer.deadletter.Broker.KAFKA
 import com.github.josh910830.portablemq.message.Message
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
@@ -18,10 +19,11 @@ import java.util.function.Supplier
 @Aspect
 @Component
 class KafkaConsumeAspect(
-    private val consumerGroupParser: ConsumerGroupParser,
     private val kafkaConsumerResolver: KafkaConsumerResolver,
-    private val objectMapper: ObjectMapper,
-    private val consumeProcessor: ConsumeProcessor
+    private val badletterHandler: BadletterHandler,
+    private val consumeProcessor: ConsumeProcessor,
+    private val consumerGroupParser: ConsumerGroupParser,
+    private val objectMapper: ObjectMapper
 ) {
 
     @Around("@annotation(a) && @annotation(b) && args(data,..)")
@@ -34,15 +36,16 @@ class KafkaConsumeAspect(
         val parseMethod = kafkaConsumerResolver.getParseMethod(consumer)
         val handleMethod = kafkaConsumerResolver.getHandleMethod(consumer)
 
+        val topic = a.topics.first()
         optionalGet(
             { parse(parseMethod, consumer, data, handleMethod) },
-            { it.printStackTrace() } // TODO badletter
+            { if (b.useBadletter) badletterHandler.create(topic, data, KAFKA, it) }
         )?.let { message ->
             consumeProcessor.consume(
                 { handleMethod.invoke(consumer, message) },
-                a.topics.first(), message,
+                topic, message,
                 b.useConsumptionLog, consumerGroupParser.parse(a),
-                b.useDeadletter, SPRING
+                b.useDeadletter, KAFKA
             )
             joinPoint.proceed()
         }

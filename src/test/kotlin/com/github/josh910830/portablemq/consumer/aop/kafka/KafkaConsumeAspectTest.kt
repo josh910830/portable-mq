@@ -1,6 +1,7 @@
 package com.github.josh910830.portablemq.consumer.aop.kafka
 
 import com.github.josh910830.portablemq.EnablePortableMQ
+import com.github.josh910830.portablemq.consumer.badletter.BadletterHandler
 import com.github.josh910830.portablemq.producer.kafka.ObjectMapperHolder
 import com.github.josh910830.portablemq.tests.example.ExampleConfiguration
 import com.github.josh910830.portablemq.tests.example.ExampleKafkaConsumer
@@ -17,17 +18,26 @@ import org.springframework.context.annotation.Import
 @Import(ExampleConfiguration::class)
 class KafkaConsumeAspectTest(
     @Autowired val exampleKafkaConsumer: ExampleKafkaConsumer,
-    @SpykBean val kafkaConsumerAspect: KafkaConsumeAspect
+    @SpykBean val kafkaConsumerAspect: KafkaConsumeAspect,
+    @SpykBean val badletterHandler: BadletterHandler
 ) : DescribeSpec({
 
     describe("consume") {
         context("on client") {
+            val data = ObjectMapperHolder.get().writeValueAsString(messageFixture())
             it("aspect consume") {
-                val message = messageFixture()
-                val data = ObjectMapperHolder.get().writeValueAsString(message)
                 exampleKafkaConsumer.consume(data)
 
                 verify { kafkaConsumerAspect.consume(any(), any(), any(), any()) }
+            }
+        }
+
+        context("invalid data") {
+            val data = "invalid"
+            it("badletter") {
+                exampleKafkaConsumer.consume(data)
+
+                verify { badletterHandler.create(any(), any(), any(), any()) }
             }
         }
     }

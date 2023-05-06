@@ -6,6 +6,7 @@ import kotlin.annotation.AnnotationTarget.FUNCTION
 annotation class Consume(
 
     val useConsumptionLog: Boolean = true,
-    val useDeadletter: Boolean = true
+    val useDeadletter: Boolean = true,
+    val useBadletter: Boolean = false
 
 )
