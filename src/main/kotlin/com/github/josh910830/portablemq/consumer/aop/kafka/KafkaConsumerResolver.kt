@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.consumer.aop.kafka
 
+import com.github.josh910830.portablemq.PortableMQException
 import com.github.josh910830.portablemq.consumer.Consumer
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
@@ -24,8 +25,8 @@ class KafkaConsumerResolver(
             }
             val isKafkaConsumer = kafkaListeners.isNotEmpty()
             if (isKafkaConsumer) {
-                if (kafkaListeners.size > 1) throw RuntimeException("@Consumer should have only one @KafkaListener.")
-                if (kafkaListeners.first().topics.size != 1) throw RuntimeException("@KafkaListener.topics should have 1 element.")
+                if (kafkaListeners.size > 1) throw PortableMQException("@Consumer should have only one @KafkaListener.")
+                if (kafkaListeners.first().topics.size != 1) throw PortableMQException("@KafkaListener.topics should have 1 element.")
             }
             isKafkaConsumer
         }
@@ -40,9 +41,9 @@ class KafkaConsumerResolver(
         }
         kafkaConsumers.forEach { bean ->
             tempParseMethodMap[bean]
-                ?: throw RuntimeException("@KafkaListener should have @Parse fun parse(data:String):Message")
+                ?: throw PortableMQException("@KafkaListener should have @Parse fun parse(data:String):Message")
             tempHandleMethodMap[bean]
-                ?: throw RuntimeException("@KafkaListener should have @Handle fun handle(message:Message)")
+                ?: throw PortableMQException("@KafkaListener should have @Handle fun handle(message:Message)")
         }
         parseMethodMap = tempParseMethodMap
         handleMethodMap = tempHandleMethodMap
