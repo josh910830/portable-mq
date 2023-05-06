@@ -1,7 +1,7 @@
-package com.github.josh910830.portablemq.consumer.aop.kafka
+package com.github.josh910830.portablemq.kafka.consumer
 
-import com.github.josh910830.portablemq.core.exception.PortableMQException
 import com.github.josh910830.portablemq.core.consumer.Consumer
+import com.github.josh910830.portablemq.core.exception.PortableMQException
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
 import org.springframework.kafka.annotation.KafkaListener
@@ -10,7 +10,7 @@ import org.springframework.util.ReflectionUtils
 import java.lang.reflect.Method
 
 @Component
-class KafkaConsumerResolver(
+class KafkaMethodResolver(
     private val applicationContext: ApplicationContext
 ) {
 

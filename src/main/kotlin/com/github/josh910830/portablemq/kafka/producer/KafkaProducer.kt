@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.producer.kafka
+package com.github.josh910830.portablemq.kafka.producer
 
 import com.github.josh910830.portablemq.core.message.Message
 import com.github.josh910830.portablemq.core.producer.BrokerProducer

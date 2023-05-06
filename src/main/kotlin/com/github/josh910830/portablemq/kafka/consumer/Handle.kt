@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.consumer.aop.kafka
+package com.github.josh910830.portablemq.kafka.consumer
 
 import kotlin.annotation.AnnotationTarget.FUNCTION
 

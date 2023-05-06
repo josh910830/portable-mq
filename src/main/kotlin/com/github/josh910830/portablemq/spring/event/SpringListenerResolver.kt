@@ -1,7 +1,7 @@
 package com.github.josh910830.portablemq.spring.event
 
-import com.github.josh910830.portablemq.spring.consumer.SpringListener
 import com.github.josh910830.portablemq.core.consumer.Consumer
+import com.github.josh910830.portablemq.spring.consumer.SpringListener
 import jakarta.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
@@ -9,7 +9,7 @@ import org.springframework.util.ReflectionUtils
 import java.lang.reflect.Method
 
 @Component
-class SpringConsumerResolver(
+class SpringListenerResolver(
     private val applicationContext: ApplicationContext
 ) {
 

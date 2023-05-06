@@ -1,11 +1,11 @@
-package com.github.josh910830.portablemq.consumer.aop.kafka
+package com.github.josh910830.portablemq.kafka.consumer
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.josh910830.portablemq.consumer.badletter.BadletterHandler
 import com.github.josh910830.portablemq.core.consumer.Broker.KAFKA
 import com.github.josh910830.portablemq.core.consumer.Consume
 import com.github.josh910830.portablemq.core.consumer.ConsumeProcessor
 import com.github.josh910830.portablemq.core.message.Message
+import com.github.josh910830.portablemq.kafka.consumer.badletter.BadletterHandler
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -19,7 +19,7 @@ import java.util.function.Supplier
 @Aspect
 @Component
 class KafkaConsumeAspect(
-    private val kafkaConsumerResolver: KafkaConsumerResolver,
+    private val kafkaMethodResolver: KafkaMethodResolver,
     private val badletterHandler: BadletterHandler,
     private val consumeProcessor: ConsumeProcessor,
     private val objectMapper: ObjectMapper,
@@ -33,8 +33,8 @@ class KafkaConsumeAspect(
         data: String
     ) {
         val consumer = joinPoint.`this`!!
-        val parseMethod = kafkaConsumerResolver.getParseMethod(consumer)
-        val handleMethod = kafkaConsumerResolver.getHandleMethod(consumer)
+        val parseMethod = kafkaMethodResolver.getParseMethod(consumer)
+        val handleMethod = kafkaMethodResolver.getHandleMethod(consumer)
 
         val topic = a.topics.first()
         val groupId = if (a.groupId == "") defaultGroupId else a.groupId

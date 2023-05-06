@@ -1,8 +1,9 @@
 package com.github.josh910830.portablemq.consumer.aop.kafka
 
 import com.github.josh910830.portablemq.EnablePortableMQ
-import com.github.josh910830.portablemq.consumer.badletter.BadletterHandler
-import com.github.josh910830.portablemq.producer.kafka.ObjectMapperHolder
+import com.github.josh910830.portablemq.kafka.consumer.KafkaConsumeAspect
+import com.github.josh910830.portablemq.kafka.consumer.badletter.BadletterHandler
+import com.github.josh910830.portablemq.kafka.producer.ObjectMapperHolder
 import com.github.josh910830.portablemq.tests.example.ExampleConfiguration
 import com.github.josh910830.portablemq.tests.example.ExampleKafkaConsumer
 import com.github.josh910830.portablemq.tests.fixture.messageFixture

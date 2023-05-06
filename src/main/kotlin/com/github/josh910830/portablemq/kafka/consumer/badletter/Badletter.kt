@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.consumer.badletter
+package com.github.josh910830.portablemq.kafka.consumer.badletter
 
 import com.github.josh910830.portablemq.core.consumer.Broker
 
