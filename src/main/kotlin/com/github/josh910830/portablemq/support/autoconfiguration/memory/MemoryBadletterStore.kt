@@ -9,6 +9,7 @@ class MemoryBadletterStore : DefaultBeanClass(), BadletterStore {
     private val map = mutableMapOf<String, Badletter>()
 
     override fun save(badletter: Badletter) {
+        log.debug("save($badletter)")
         map[badletter.id] = badletter
     }
 

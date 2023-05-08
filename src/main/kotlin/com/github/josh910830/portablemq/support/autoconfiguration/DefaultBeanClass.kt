@@ -5,10 +5,12 @@ import org.slf4j.LoggerFactory
 
 abstract class DefaultBeanClass {
 
+    protected val log = LoggerFactory.getLogger(javaClass)!!
+
+
     @PostConstruct
-    fun warn() {
-        LoggerFactory.getLogger(javaClass)
-            .warn("This is DefaultBean for Convenience. Implement ${javaClass.interfaces.first().simpleName} of PortableMQ.")
+    fun warnDefault() {
+        log.warn("This is DefaultBean for Convenience. Implement ${javaClass.interfaces.first().simpleName} of PortableMQ.")
     }
 
 }

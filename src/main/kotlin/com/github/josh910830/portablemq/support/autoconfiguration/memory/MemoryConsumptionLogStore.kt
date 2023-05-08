@@ -12,11 +12,13 @@ class MemoryConsumptionLogStore : DefaultBeanClass(), ConsumptionLogStore {
 
 
     override fun save(consumptionLog: ConsumptionLog) {
+        log.debug("save($consumptionLog)")
         val key = "${consumptionLog.groupId}$delimiter${consumptionLog.message.id}"
         map[key] = consumptionLog
     }
 
     override fun exists(groupId: String, messageId: String): Boolean {
+        log.debug("exists($groupId, $messageId)")
         val key = "$groupId$delimiter$messageId"
         return map.contains(key)
     }
