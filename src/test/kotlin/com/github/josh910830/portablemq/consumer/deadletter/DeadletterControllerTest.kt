@@ -3,8 +3,8 @@ package com.github.josh910830.portablemq.consumer.deadletter
 import com.github.josh910830.portablemq.EnablePortableMQ
 import com.github.josh910830.portablemq.core.consumer.Broker.SPRING
 import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterStore
+import com.github.josh910830.portablemq.core.consumer.deadletter.RedriveTokenManager
 import com.github.josh910830.portablemq.spring.consumer.deadletter.SpringRedriveProducer
-import com.github.josh910830.portablemq.tests.example.*
 import com.github.josh910830.portablemq.tests.fixture.deadletterFixture
 import com.ninjasquad.springmockk.SpykBean
 import io.kotest.core.spec.style.DescribeSpec
@@ -12,7 +12,6 @@ import io.mockk.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Import
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD
 import org.springframework.test.web.servlet.MockMvc
@@ -24,11 +23,10 @@ import java.util.stream.Collectors.joining
 @EnablePortableMQ
 @DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-@Import(ExampleConfiguration::class)
 class DeadletterControllerTest(
     @Autowired val mockMvc: MockMvc,
     @SpykBean val deadletterStore: DeadletterStore,
-    @SpykBean val redriveTokenManager: ExampleRedriveTokenManager,
+    @SpykBean val redriveTokenManager: RedriveTokenManager,
     @SpykBean val springRedriveProducer: SpringRedriveProducer,
 ) : DescribeSpec({
 

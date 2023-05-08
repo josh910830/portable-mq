@@ -6,18 +6,15 @@ import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterHandl
 import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterNotifier
 import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterStore
 import com.github.josh910830.portablemq.core.consumer.deadletter.RedriveTokenManager
-import com.github.josh910830.portablemq.tests.example.ExampleConfiguration
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
 import com.ninjasquad.springmockk.SpykBean
 import io.kotest.core.spec.style.DescribeSpec
 import io.mockk.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Import
 
 @SpringBootTest
 @EnablePortableMQ
-@Import(ExampleConfiguration::class)
 class DeadletterHandlerTest(
     @Autowired val deadletterHandler: DeadletterHandler,
     @SpykBean val deadletterStore: DeadletterStore,

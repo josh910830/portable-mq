@@ -4,7 +4,6 @@ import com.github.josh910830.portablemq.EnablePortableMQ
 import com.github.josh910830.portablemq.kafka.consumer.KafkaConsumeAspect
 import com.github.josh910830.portablemq.kafka.consumer.badletter.BadletterHandler
 import com.github.josh910830.portablemq.kafka.producer.ObjectMapperHolder
-import com.github.josh910830.portablemq.tests.example.ExampleConfiguration
 import com.github.josh910830.portablemq.tests.example.ExampleKafkaConsumer
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
 import com.ninjasquad.springmockk.SpykBean
@@ -13,12 +12,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Import
 import org.springframework.kafka.support.Acknowledgment
 
 @SpringBootTest
 @EnablePortableMQ
-@Import(ExampleConfiguration::class)
 class KafkaConsumeAspectTest(
     @Autowired val exampleKafkaConsumer: ExampleKafkaConsumer,
     @SpykBean val kafkaConsumerAspect: KafkaConsumeAspect,

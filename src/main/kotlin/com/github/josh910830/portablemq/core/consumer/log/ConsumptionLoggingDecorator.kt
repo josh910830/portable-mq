@@ -4,7 +4,7 @@ import com.github.josh910830.portablemq.core.message.Message
 import org.springframework.stereotype.Component
 
 @Component
-class ConsumptionLogDecorator(
+class ConsumptionLoggingDecorator(
     private val consumptionLogStore: ConsumptionLogStore
 ) {
 
