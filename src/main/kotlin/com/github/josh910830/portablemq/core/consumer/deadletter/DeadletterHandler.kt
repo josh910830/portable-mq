@@ -1,6 +1,9 @@
 package com.github.josh910830.portablemq.core.consumer.deadletter
 
 import com.github.josh910830.portablemq.core.consumer.Broker
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.DeadletterNotifier
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.DeadletterStore
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.RedriveTokenManager
 import com.github.josh910830.portablemq.core.message.Message
 import org.springframework.stereotype.Component
 import java.util.*

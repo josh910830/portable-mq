@@ -1,8 +1,8 @@
-package com.github.josh910830.portablemq.support.autoconfiguration.memory
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter.memory
 
 import com.github.josh910830.portablemq.kafka.consumer.badletter.Badletter
-import com.github.josh910830.portablemq.kafka.consumer.badletter.BadletterStore
-import com.github.josh910830.portablemq.support.autoconfiguration.DefaultBeanClass
+import com.github.josh910830.portablemq.kafka.consumer.badletter.interfaces.BadletterStore
+import com.github.josh910830.portablemq.support.autoconfiguration.adapter.DefaultBeanClass
 
 class MemoryBadletterStore : DefaultBeanClass(), BadletterStore {
 

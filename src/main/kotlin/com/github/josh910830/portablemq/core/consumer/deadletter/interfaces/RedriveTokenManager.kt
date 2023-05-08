@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.core.consumer.deadletter
+package com.github.josh910830.portablemq.core.consumer.deadletter.interfaces
 
 interface RedriveTokenManager {
 

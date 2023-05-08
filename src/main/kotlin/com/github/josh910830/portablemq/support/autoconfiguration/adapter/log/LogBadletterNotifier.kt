@@ -1,8 +1,8 @@
-package com.github.josh910830.portablemq.support.autoconfiguration.log
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter.log
 
 import com.github.josh910830.portablemq.kafka.consumer.badletter.Badletter
-import com.github.josh910830.portablemq.kafka.consumer.badletter.BadletterNotifier
-import com.github.josh910830.portablemq.support.autoconfiguration.DefaultBeanClass
+import com.github.josh910830.portablemq.kafka.consumer.badletter.interfaces.BadletterNotifier
+import com.github.josh910830.portablemq.support.autoconfiguration.adapter.DefaultBeanClass
 
 class LogBadletterNotifier : DefaultBeanClass(), BadletterNotifier {
 

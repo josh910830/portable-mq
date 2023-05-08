@@ -1,7 +1,7 @@
-package com.github.josh910830.portablemq.support.autoconfiguration.stub
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter.stub
 
-import com.github.josh910830.portablemq.core.consumer.deadletter.RedriveTokenManager
-import com.github.josh910830.portablemq.support.autoconfiguration.DefaultBeanClass
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.RedriveTokenManager
+import com.github.josh910830.portablemq.support.autoconfiguration.adapter.DefaultBeanClass
 
 class StubRedriveTokenManager : DefaultBeanClass(), RedriveTokenManager {
 

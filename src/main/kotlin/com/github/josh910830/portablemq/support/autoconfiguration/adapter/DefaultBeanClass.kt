@@ -1,4 +1,4 @@
-package com.github.josh910830.portablemq.support.autoconfiguration
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter
 
 import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory

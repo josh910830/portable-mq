@@ -1,5 +1,6 @@
 package com.github.josh910830.portablemq.core.consumer.log
 
+import com.github.josh910830.portablemq.core.consumer.log.interfaces.ConsumptionLogStore
 import com.github.josh910830.portablemq.core.message.Message
 import org.springframework.stereotype.Component
 

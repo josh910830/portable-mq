@@ -3,7 +3,7 @@ package com.github.josh910830.portablemq.consumer.log
 import com.github.josh910830.portablemq.EnablePortableMQ
 import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLog
 import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLoggingDecorator
-import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLogStore
+import com.github.josh910830.portablemq.core.consumer.log.interfaces.ConsumptionLogStore
 import com.github.josh910830.portablemq.tests.fixture.messageFixture
 import com.ninjasquad.springmockk.SpykBean
 import io.kotest.core.spec.style.DescribeSpec

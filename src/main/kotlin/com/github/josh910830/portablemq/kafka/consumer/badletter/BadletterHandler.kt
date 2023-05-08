@@ -1,6 +1,8 @@
 package com.github.josh910830.portablemq.kafka.consumer.badletter
 
 import com.github.josh910830.portablemq.core.consumer.Broker
+import com.github.josh910830.portablemq.kafka.consumer.badletter.interfaces.BadletterNotifier
+import com.github.josh910830.portablemq.kafka.consumer.badletter.interfaces.BadletterStore
 import org.springframework.stereotype.Component
 import java.util.*
 

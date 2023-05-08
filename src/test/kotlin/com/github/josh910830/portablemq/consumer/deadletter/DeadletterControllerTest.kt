@@ -2,8 +2,8 @@ package com.github.josh910830.portablemq.consumer.deadletter
 
 import com.github.josh910830.portablemq.EnablePortableMQ
 import com.github.josh910830.portablemq.core.consumer.Broker.SPRING
-import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterStore
-import com.github.josh910830.portablemq.core.consumer.deadletter.RedriveTokenManager
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.DeadletterStore
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.RedriveTokenManager
 import com.github.josh910830.portablemq.spring.consumer.deadletter.SpringRedriveProducer
 import com.github.josh910830.portablemq.tests.fixture.deadletterFixture
 import com.ninjasquad.springmockk.SpykBean

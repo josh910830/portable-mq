@@ -1,7 +1,9 @@
-package com.github.josh910830.portablemq.core.consumer.deadletter
+package com.github.josh910830.portablemq.core.consumer.deadletter.api
 
-import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterProcessResult.Companion.fail
-import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterProcessResult.Companion.success
+import com.github.josh910830.portablemq.core.consumer.deadletter.Deadletter
+import com.github.josh910830.portablemq.core.consumer.deadletter.DeadletterService
+import com.github.josh910830.portablemq.core.consumer.deadletter.api.DeadletterProcessResult.Companion.fail
+import com.github.josh910830.portablemq.core.consumer.deadletter.api.DeadletterProcessResult.Companion.success
 import com.github.josh910830.portablemq.core.exception.PortableMQException
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.*

@@ -1,5 +1,7 @@
 package com.github.josh910830.portablemq.core.consumer.deadletter
 
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.DeadletterStore
+import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.RedriveTokenManager
 import com.github.josh910830.portablemq.core.exception.PortableMQException
 import org.springframework.stereotype.Service
 
