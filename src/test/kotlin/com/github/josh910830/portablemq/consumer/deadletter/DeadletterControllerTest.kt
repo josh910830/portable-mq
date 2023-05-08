@@ -32,7 +32,7 @@ class DeadletterControllerTest(
     @SpykBean val springRedriveProducer: SpringRedriveProducer,
 ) : DescribeSpec({
 
-    describe("redrive") {
+    describe("redrive batch") {
         context("deadletters are exist") {
             val d1 = deadletterFixture(SPRING)
             val d2 = deadletterFixture(SPRING)
@@ -45,7 +45,7 @@ class DeadletterControllerTest(
                 val targets = listOf(d1, d2)
                 val deadletterIds = targets.map { it.id }.stream().collect(joining(","))
 
-                mockMvc.post("/_deadletter/redrive?deadletterIds=$deadletterIds")
+                mockMvc.post("/portable-mq/deadletter/redrive-batch?deadletterIds=$deadletterIds")
                     .andExpect { status { isOk() } }
 
                 verify(exactly = 2) { springRedriveProducer.produce(any(), any()) }
@@ -62,7 +62,7 @@ class DeadletterControllerTest(
             deadletterStore.save(d2)
 
             it("produce rest") {
-                mockMvc.post("/_deadletter/redrive-all")
+                mockMvc.post("/portable-mq/deadletter/redrive-all")
                     .andExpect { status { isOk() } }
 
                 verify(exactly = 1) { springRedriveProducer.produce(any(), any()) }
@@ -78,7 +78,7 @@ class DeadletterControllerTest(
             val redriveToken = redriveTokenManager.issue(deadletter.id)
 
             it("success") {
-                mockMvc.get("/_deadletter/redrive-token?deadletterId=${deadletter.id}&redriveToken=$redriveToken")
+                mockMvc.get("/portable-mq/deadletter/redrive-token?deadletterId=${deadletter.id}&redriveToken=$redriveToken")
                     .andExpect { status { isOk() } }
             }
         }
@@ -87,7 +87,7 @@ class DeadletterControllerTest(
             val redriveToken = "invalid"
 
             it("fail") {
-                mockMvc.get("/_deadletter/redrive-token?deadletterId=${deadletter.id}&redriveToken=$redriveToken")
+                mockMvc.get("/portable-mq/deadletter/redrive-token?deadletterId=${deadletter.id}&redriveToken=$redriveToken")
                     .andExpect { status { isBadRequest() } }
             }
         }

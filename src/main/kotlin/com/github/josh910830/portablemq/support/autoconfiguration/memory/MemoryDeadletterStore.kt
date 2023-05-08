@@ -14,14 +14,24 @@ class MemoryDeadletterStore : DefaultBeanClass(), DeadletterStore {
         map[deadletter.id] = deadletter
     }
 
-    override fun find(deadletterId: String): Deadletter {
-        log.debug("find($deadletterId)")
+    override fun findAll(): List<Deadletter> {
+        log.debug("findAll()")
+        return map.values.toList()
+    }
+
+    override fun findById(deadletterId: String): Deadletter {
+        log.debug("findById($deadletterId)")
         return map[deadletterId]!!
     }
 
-    override fun findAllNotRedriven(): List<Deadletter> {
-        log.debug("findAllNotRedriven()")
-        return map.values.filterNot { it.redriven }
+    override fun deleteById(deadletterId: String) {
+        log.debug("deleteById($deadletterId)")
+        map.remove(deadletterId)
+    }
+
+    override fun clear() {
+        log.debug("clear()")
+        map.clear()
     }
 
 }

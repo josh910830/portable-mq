@@ -13,12 +13,20 @@ class ExampleDeadletterStore : DeadletterStore {
         map[deadletter.id] = deadletter
     }
 
-    override fun find(deadletterId: String): Deadletter {
+    override fun findAll(): List<Deadletter> {
+        return map.values.toList()
+    }
+
+    override fun findById(deadletterId: String): Deadletter {
         return map[deadletterId]!!
     }
 
-    override fun findAllNotRedriven(): List<Deadletter> {
-        return map.values.filter { !it.redriven }
+    override fun deleteById(deadletterId: String) {
+        map.remove(deadletterId)
+    }
+
+    override fun clear() {
+        map.clear()
     }
 
 }
