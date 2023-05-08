@@ -16,20 +16,17 @@ class DeadletterController(
 ) {
 
     @GetMapping("/")
-    fun findAll(): ResponseEntity<List<Deadletter>> {
-        val res = deadletterService.findAll()
+    fun find(
+        @RequestParam(required = false) topic: String?,
+        @RequestParam(required = false) redriven: Boolean?
+    ): ResponseEntity<List<Deadletter>> {
+        val res = deadletterService.find(topic, redriven)
         return ok(res)
     }
 
     @GetMapping("/{deadletterId}")
     fun findById(@PathVariable deadletterId: String): ResponseEntity<Deadletter> {
         val res = deadletterService.findById(deadletterId)
-        return ok(res)
-    }
-
-    @GetMapping("/not-redriven")
-    fun findNotRedriven(): ResponseEntity<List<Deadletter>> {
-        val res = deadletterService.findNotRedriven()
         return ok(res)
     }
 
@@ -51,7 +48,7 @@ class DeadletterController(
 
     @PostMapping("/redrive-all")
     fun redriveAll(): ResponseEntity<List<DeadletterProcessResult>> {
-        val deadletterIds = deadletterService.findNotRedriven().map { it.id }
+        val deadletterIds = deadletterService.find(redriven = false).map { it.id }
         return redriveBatch(deadletterIds)
     }
 
@@ -79,7 +76,7 @@ class DeadletterController(
 
     @DeleteMapping("/drop-redriven")
     fun dropRedriven(): ResponseEntity<List<DeadletterProcessResult>> {
-        val deadletterIds = deadletterService.findRedriven().map { it.id }
+        val deadletterIds = deadletterService.find(redriven = true).map { it.id }
         return dropBatch(deadletterIds)
     }
 

@@ -13,4 +13,24 @@ class MemoryBadletterStore : DefaultBeanClass(), BadletterStore {
         map[badletter.id] = badletter
     }
 
+    override fun findAll(): List<Badletter> {
+        log.debug("findAll()")
+        return map.values.toList()
+    }
+
+    override fun findById(badletterId: String): Badletter {
+        log.debug("findById($badletterId)")
+        return map[badletterId]!!
+    }
+
+    override fun deleteById(badletterId: String) {
+        log.debug("deleteById($badletterId)")
+        map.remove(badletterId)
+    }
+
+    override fun clear() {
+        log.debug("clear()")
+        map.clear()
+    }
+
 }

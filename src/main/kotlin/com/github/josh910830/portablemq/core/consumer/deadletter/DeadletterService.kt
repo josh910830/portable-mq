@@ -12,20 +12,14 @@ class DeadletterService(
     private val redriveTokenManager: RedriveTokenManager
 ) {
 
-    fun findAll(): List<Deadletter> {
+    fun find(topic: String? = null, redriven: Boolean? = null): List<Deadletter> {
         return deadletterStore.findAll()
+            .filter { topic?.let { t -> it.topic == t } ?: true }
+            .filter { redriven?.let { r -> it.redriven == r } ?: true }
     }
 
     fun findById(deadletterId: String): Deadletter {
         return deadletterStore.findById(deadletterId)
-    }
-
-    fun findRedriven(): List<Deadletter> {
-        return findAll().filter { it.redriven }
-    }
-
-    fun findNotRedriven(): List<Deadletter> {
-        return findAll().filter { !it.redriven }
     }
 
 
