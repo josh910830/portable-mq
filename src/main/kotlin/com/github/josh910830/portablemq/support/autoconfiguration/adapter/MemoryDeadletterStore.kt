@@ -1,8 +1,8 @@
-package com.github.josh910830.portablemq.support.autoconfiguration.adapter.memory
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter
 
 import com.github.josh910830.portablemq.core.consumer.deadletter.Deadletter
 import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.DeadletterStore
-import com.github.josh910830.portablemq.support.autoconfiguration.adapter.DefaultBeanClass
+import com.github.josh910830.portablemq.support.autoconfiguration.DefaultBeanClass
 
 class MemoryDeadletterStore : DefaultBeanClass(), DeadletterStore {
 

@@ -12,7 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate
 @Configuration
 class KafkaConfiguration(
     @Value("\${spring.kafka.producer.bootstrap-servers}")
-    private val bootstrapServers: String = "localhost:9092",
+    private val bootstrapServers: String = "localhost:9092"
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)

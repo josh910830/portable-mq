@@ -53,7 +53,7 @@ class KafkaConsumeAspect(
                 b.useDeadletter, KAFKA
             )
             ack.acknowledge()
-        }
+        } ?: ack.acknowledge()
     }
 
     private fun parse(

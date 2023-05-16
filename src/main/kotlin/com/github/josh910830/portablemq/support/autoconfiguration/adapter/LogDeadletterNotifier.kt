@@ -1,8 +1,8 @@
-package com.github.josh910830.portablemq.support.autoconfiguration.adapter.log
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter
 
 import com.github.josh910830.portablemq.core.consumer.deadletter.Deadletter
 import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.DeadletterNotifier
-import com.github.josh910830.portablemq.support.autoconfiguration.adapter.DefaultBeanClass
+import com.github.josh910830.portablemq.support.autoconfiguration.DefaultBeanClass
 
 class LogDeadletterNotifier : DefaultBeanClass(), DeadletterNotifier {
 

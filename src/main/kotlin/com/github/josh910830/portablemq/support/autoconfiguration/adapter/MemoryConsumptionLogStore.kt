@@ -1,8 +1,8 @@
-package com.github.josh910830.portablemq.support.autoconfiguration.adapter.memory
+package com.github.josh910830.portablemq.support.autoconfiguration.adapter
 
 import com.github.josh910830.portablemq.core.consumer.log.ConsumptionLog
 import com.github.josh910830.portablemq.core.consumer.log.interfaces.ConsumptionLogStore
-import com.github.josh910830.portablemq.support.autoconfiguration.adapter.DefaultBeanClass
+import com.github.josh910830.portablemq.support.autoconfiguration.DefaultBeanClass
 
 class MemoryConsumptionLogStore : DefaultBeanClass(), ConsumptionLogStore {
 
