@@ -26,13 +26,21 @@ by josh910830@gmail.com
 ### build.gradle
 
 ```groovy
-// build.gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.josh910830:portable-mq:1.1.0'
+}
 ```
 
 ### @Configuration
 
 ```java
-// @EnablePortableMQ
+@EnablePortableMQ
+@SpringBootApplication
+public class Application { /* ... */ }
 ```
 
 ### application.yml
@@ -56,58 +64,69 @@ spring:
 ### Producer
 
 ```java
-// public class XxxService {
-// private final BrokerProducer<XxxMessage> producer;
-// }
+public class ExampleService {
+
+    // Implement bean extends SpringProducer or KafkaProducer.
+    private final PortableProducer<ExampleMessage> exampleProducer;
+
+    public void process() {
+        // ...
+        exampleProducer.produce(new ExampleMessage("id", "content"));
+    }
+
+}
 ```
 
 ```java
-// @Producer("example-message")
-// public class XxxSpringProducer implements SpringProducer<XxxMessage> {}
+@Producer(topic = "example") // No need to impl method.
+public class SpringExampleProducer implements SpringProducer<ExampleMessage> {}
 ```
 
 ```java
-// @Producer("example-message")
-// public class XxxKafkaProducer implements KafkaProducer<XxxMessage> {}
+@Producer(topic = "example") // No need to impl method.
+public class KafkaExampleProducer implements KafkaProducer<ExampleMessage> {}
 ```
 
 ### Consumer
 
 ```java
-// @Consumer
-// public class ExampleSpringConsumer {
-//    @Consume(useDeadletter=false)
-//    @SpringListener("example-message")
-//    fun consume(exampleMessage:ExampleMessage) {
-// IMPL
-//    }
-// }
+@Consumer
+public class SpringExampleConsumer {
+
+    @Consume(useDeadletter = true) // Deadletter is re-drivable by link with token.
+    @SpringListener(topic = "example", groupId = "example-consumer")
+    public void consume(ExampleMessage message) {
+        // TODO impl
+    }
+
+}
 ```
 
 ```java
-// @Consumer
-// class ExampleKafkaConsumer {
-//     @Consume(useBadletter = true)
-//     @KafkaListener(topics = ["example-message"])
-//     fun consume(data: String, ack: Acknowledgment) {}
-//
-//     @Handle
-//     fun handle(message: ExampleMessage) {
-// IMPL
-//     }
-// }
+@Consumer
+public class KafkaExampleConsumer {
+
+    @Consume(useBadletter = true) // Badletter is im-parsable. If use store raw, else skip.
+    @KafkaListener(topics = "example") // Just trigger. -> @Parse -> @Handle -> ack.
+    public void consume(String data, Acknowledgment ack) {}
+
+    // optional. ObjectMapper try parse string to @Handle param as default.
+    // @Parse ExampleMessage parse(String data)
+
+    @Handle
+    public void handle(ExampleMessage message) {
+        // TODO impl
+    }
+
+}
 ```
 
-### Adapter
-
-```java
-// public class JpaDeadletterStore extends AbstractDeadletterStore {
-//   @Scheduled
-//   @Override
-//   public void clear() {
-//   }
-// }
-```
+@see
+[ConsumeProcessor](./src/main/kotlin/com/github/josh910830/portablemq/core/consumer/ConsumeProcessor.kt) /
+[SpringMessageEventDispatcher](./src/main/kotlin/com/github/josh910830/portablemq/spring/event/SpringMessageEventDispatcher.kt),
+[SpringConsumerAspect](./src/main/kotlin/com/github/josh910830/portablemq/spring/consumer/SpringConsumeAspect.kt) /
+[KafkaConsumerAspect](./src/main/kotlin/com/github/josh910830/portablemq/kafka/consumer/KafkaConsumeAspect.kt),
+[KafkaMethodResolver](./src/main/kotlin/com/github/josh910830/portablemq/kafka/consumer/KafkaMethodResolver.kt)
 
 ### API
 
