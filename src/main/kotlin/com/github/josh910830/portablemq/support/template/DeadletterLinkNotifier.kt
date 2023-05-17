@@ -6,7 +6,7 @@ import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.Dead
 abstract class DeadletterLinkNotifier : DeadletterNotifier {
 
     final override fun notify(deadletter: Deadletter, redriveToken: String, exception: Exception) {
-        val redriveLink = "$serverAddress/redrive-token" +
+        val redriveLink = "$serverAddress/portable-mq/deadletter/redrive-token" +
                 "?deadletterId=${deadletter.id}" +
                 "&redriveToken=${redriveToken}"
         doNotify(deadletter, exception, redriveLink)

@@ -7,11 +7,14 @@ plugins {
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     java
+    `java-library`
+    `maven-publish`
 }
 
 group = "com.github.josh910830"
-version = "0.0.1-SNAPSHOT"
+version = "1.1.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -42,7 +45,7 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=all")
         jvmTarget = "17"
     }
 }
@@ -53,8 +56,25 @@ tasks.withType<Test> {
 
 tasks.withType<Jar> {
     enabled = true
+    archiveClassifier.set("")
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
 
 tasks.withType<BootJar> {
     enabled = false
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
+}
+
+tasks.wrapper {
+    gradleVersion = "7.6.1"
+    distributionType = Wrapper.DistributionType.ALL
 }
