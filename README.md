@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.josh910830:portable-mq:1.1.0'
+    implementation 'com.github.josh910830:portable-mq:1.1.1'
 }
 ```
 

@@ -7,13 +7,13 @@ import java.util.concurrent.Executor
 @Component
 class SpringMessageEventDispatcher(
     private val springListenerResolver: SpringListenerResolver,
-    private val executor: Executor
+    private val portableMqExecutor: Executor
 ) {
 
     @EventListener
     fun on(e: SpringMessageEvent) {
         springListenerResolver.get(e.topic).forEach {
-            executor.execute {
+            portableMqExecutor.execute {
                 it.method.invoke(it.bean, e.message)
             }
         }
