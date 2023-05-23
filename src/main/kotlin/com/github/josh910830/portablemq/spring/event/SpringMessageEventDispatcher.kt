@@ -12,6 +12,7 @@ class SpringMessageEventDispatcher(
 
     @EventListener
     fun on(e: SpringMessageEvent) {
+        // TODO support variant type
         springListenerResolver.get(e.topic).forEach {
             portableMqExecutor.execute {
                 it.method.invoke(it.bean, e.message)

@@ -18,6 +18,7 @@ by josh910830@gmail.com
 - [Usage](#Usage)
 - [Architecture](#Architecture)
 - [Premise](#Premise)
+- [Release](#Release)
 
 ---
 
@@ -25,13 +26,15 @@ by josh910830@gmail.com
 
 ### build.gradle
 
+`latest: 1.1.2`
+
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.josh910830:portable-mq:1.1.2'
+    implementation 'com.github.josh910830:portable-mq:$version'
 }
 ```
 
@@ -450,3 +453,22 @@ To prevent message loss, commit must be made after the consumer has finished wor
 However, if there are messages that cannot be processed, clogging will occur and operation will be down.  
 So, PortableMQ utilized the deadletter, this means that outstanding messages will be processed later.  
 Therefore, the order between messages within the partition is not guaranteed.
+
+## Release
+
+### `1.2.0`: Coming Soon
+
+- Support Variant Type between `SpringProducer` and `@SpringListener`.
+  - Using `ObjectMapper`, convert `ProduceMessage` -> `String` -> `ConsumerMessage`.
+  - `Badletter` cares exception on parsing `ConsumerMessage`.
+
+### `1.1.2`: 2023/05/23
+
+- Named Executor with Auto Configuration
+  - `Executor` for `SpringMessageEventDispatcher` had been duplicated on `@EnableScheduling`.
+  - Qualify bean by name `portableMqExecutor` and set `ThreadPoolExecutor(3)` as default.
+
+
+### `1.1.0`: 2023/05/17
+
+- Initial Release
