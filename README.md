@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.josh910830:portable-mq:1.1.1'
+    implementation 'com.github.josh910830:portable-mq:1.1.2'
 }
 ```
 
@@ -40,7 +40,12 @@ dependencies {
 ```java
 @EnablePortableMQ
 @SpringBootApplication
-public class Application { /* ... */ }
+public class Application {
+
+    // autoconfiguration: ThreadPoolExecutor(3)
+    // @Bean Executor portableMqExecutor()
+
+}
 ```
 
 ### application.yml
@@ -96,7 +101,7 @@ public class SpringExampleConsumer {
     @Consume(useDeadletter = true) // Deadletter is re-drivable by link with token.
     @SpringListener(topic = "example", groupId = "example-consumer")
     public void consume(ExampleMessage message) {
-        // TODO impl
+        // impl
     }
 
 }
@@ -115,7 +120,7 @@ public class KafkaExampleConsumer {
 
     @Handle
     public void handle(ExampleMessage message) {
-        // TODO impl
+        // impl
     }
 
 }

@@ -10,9 +10,19 @@ import com.github.josh910830.portablemq.support.autoconfiguration.adapter.*
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 @Configuration
 class DefaultBeanAutoConfiguration {
+
+    @Bean
+    @ConditionalOnMissingBean
+    fun portableMqExecutor(): Executor {
+        val concurrency = 3
+        return Executors.newFixedThreadPool(concurrency)
+    }
+
 
     @Bean
     @ConditionalOnMissingBean
