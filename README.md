@@ -26,7 +26,7 @@ by josh910830@gmail.com
 
 ### build.gradle
 
-`latest: 1.1.2`
+`latest: 1.1.3`
 
 ```groovy
 repositories {
@@ -43,11 +43,28 @@ dependencies {
 ```java
 @EnablePortableMQ
 @SpringBootApplication
-public class Application {
+public class App { /**/ }
 
-    // autoconfiguration: ThreadPoolExecutor(3)
-    // @Bean Executor portableMqExecutor()
+// optional
+@Configuration
+public class Config {
+    @Bean // auto-config: ThreadPoolExecutor(3)
+    public Executor portableMqExecutor() { /**/ }
+}
+```
 
+```java
+@SpringBootTest
+@Import(TestConfig.class)
+public class ApplicationTests { /**/ }
+
+// optional
+@TestConfiguration
+public class TestConfig {
+    @Bean // switch off dispatch to @SpringListener
+    public SpringListenerSwitch springListenerSwitch() {
+      return new TestSpringListenerSwitch();
+    }
 }
 ```
 
@@ -118,8 +135,8 @@ public class KafkaExampleConsumer {
     @KafkaListener(topics = "example") // Just trigger. -> @Parse -> @Handle -> ack.
     public void consume(String data, Acknowledgment ack) {}
 
-    // optional. ObjectMapper try parse string to @Handle param as default.
-    // @Parse ExampleMessage parse(String data)
+    @Parse // optional. ObjectMapper try parse string to @Handle param as default.
+    public ExampleMessage parse(String data) { /**/ }
 
     @Handle
     public void handle(ExampleMessage message) {
@@ -461,6 +478,12 @@ Therefore, the order between messages within the partition is not guaranteed.
 - Support Variant Type between `SpringProducer` and `@SpringListener`.
   - Using `ObjectMapper`, convert `ProduceMessage` -> `String` -> `ConsumerMessage`.
   - `Badletter` cares exception on parsing `ConsumerMessage`.
+
+### `1.1.3`: 2023/05/27
+
+- `SpringListenerSwitch` for Test
+  - Test code should not care context out of boundary on asynchronous communication.
+  - Register `TestSpringListenerSwitch` as bean, to switch off dispatch message to Consumer.
 
 ### `1.1.2`: 2023/05/23
 

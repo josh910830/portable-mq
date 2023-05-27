@@ -6,6 +6,7 @@ import com.github.josh910830.portablemq.core.consumer.deadletter.interfaces.Redr
 import com.github.josh910830.portablemq.core.consumer.log.interfaces.ConsumptionLogStore
 import com.github.josh910830.portablemq.kafka.consumer.badletter.interfaces.BadletterNotifier
 import com.github.josh910830.portablemq.kafka.consumer.badletter.interfaces.BadletterStore
+import com.github.josh910830.portablemq.spring.event.SpringListenerSwitch
 import com.github.josh910830.portablemq.support.autoconfiguration.adapter.*
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
@@ -21,6 +22,14 @@ class DefaultBeanAutoConfiguration {
     fun portableMqExecutor(): Executor {
         val concurrency = 3
         return Executors.newFixedThreadPool(concurrency)
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    fun springListenerSwitch(): SpringListenerSwitch {
+        return object : SpringListenerSwitch {
+            override fun isActive(): Boolean = true
+        }
     }
 
 
