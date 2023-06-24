@@ -26,7 +26,7 @@ by josh910830@gmail.com
 
 ### build.gradle
 
-`latest: 1.1.3`
+`latest: 1.1.4`
 
 ```groovy
 repositories {

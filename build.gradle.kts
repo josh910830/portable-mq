@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.github.josh910830"
-version = "1.1.3"
+version = "1.1.4"
 java.sourceCompatibility = JavaVersion.VERSION_17
 java.targetCompatibility = JavaVersion.VERSION_17
 
